@@ -1,0 +1,17 @@
+name: Main
+
+on: [ push, pull_request ]
+
+jobs:
+  main:
+    runs-on: ubuntu-22.04
+
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - name: Test
+        run: |
+          dotnet tool restore
+          dotnet fable fable_src/fable.fsproj --outDir fable --extension .fs.js --noRestore --noCache
+          ls ./fable
